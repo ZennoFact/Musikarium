@@ -45,6 +45,44 @@ var scales = {
     48: new MusicScale('C7' , 2093), // 0 ド+++
 };
 
+var scalesArray = [
+  scales[90],  // Z ド-
+  scales[88],  // X レ-
+  scales[67],  // C ミ-
+  scales[86],  // V ファ-
+  scales[78],  // N ソ-
+  scales[77],  // M ラ-
+  scales[188],  // , シ-
+  scales[190],  // . ド
+
+  scales[65],  // A ド
+  scales[83],  // S レ
+  scales[68],  // D ミ
+  scales[70],  // F ファ
+  scales[74],  // J ソ
+  scales[75],  // K ラ
+  scales[76],  // L シ
+  scales[59],  // ; ド+
+
+  scales[81],  // Q ド+
+  scales[87],  // W レ+
+  scales[69],  // E ミ+
+  scales[82],  // R ファ+
+  scales[85],  // U ソ+
+  scales[73],  // I ラ+
+  scales[79],  // O シ+
+  scales[80], // P ド++
+
+  scales[49], // 1 ド++
+  scales[50], // 2 レ++
+  scales[51], // 3 ミ++
+  scales[52], // 4 ファ++
+  scales[55], // 7 ソ++
+  scales[56], // 8 ラ++
+  scales[57], // 9 シ++
+  scales[48], // 0 ド+++
+];
+
 var scalesBlack = {
     90: new MusicScale('C3#' , 139),  // Z ド-#
     88: new MusicScale('D3#' , 156),  // X レ-#
@@ -99,7 +137,25 @@ var harmony = {
     61: [74, 81, 85],
     220:[65, 74, 59],
     192:[90, 78, 190]
-}
+};
+
+var harmonyArray = [
+    [65, 68, 74],
+    [83, 70, 75],
+    [81, 87, 69],
+    [87, 73, 83],
+    [90, 67, 78],
+    [88, 86, 77],
+    [74, 76, 87],
+    [68, 74, 76],
+    [75, 59, 69],
+    [49, 51, 55],
+    [50, 52, 56],
+    [81, 85, 80],
+    [74, 81, 85],
+    [65, 74, 59],
+    [90, 78, 190]
+];
 
 function triad(array) {
     var sin1 = T('sin', {freq:scales[array[0]].getHertz(), mul:0.3});
@@ -120,3 +176,9 @@ function singleScale(key, isBlack) {
     }).bang().play();
 }
 
+function singleScale2(key) {
+    var sin = T('sin', { freq: scalesArray[key].getHertz(), mul: 0.5 });
+    T('perc', {r:1000}, sin).on('ended', function() {
+        this.pause();
+    }).bang().play();
+}

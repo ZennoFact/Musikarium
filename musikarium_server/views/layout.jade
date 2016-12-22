@@ -3,7 +3,14 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src='/javascripts/socket.io/lib/socket.js')
+  body
+    block content
+
+    script.
+      var COUNT_X = #{particlesCount}
+      var COUNT_XX = #{dotCount}
+    // TODO ここ，IPアドレスに変更
+    script(src='http://localhost:3000/javascripts/vendor/socket.io-client/dist/socket.io.js')
     script(src='/javascripts/vendor/phina.js')
     script(src='/javascripts/vendor/timbre.js')
     script(src='/javascripts/play.js')
@@ -11,5 +18,3 @@ html
     script(src='/javascripts/back_dot.js')
     script(src='/javascripts/particle.js')
     script(src='/javascripts/main.js')
-  body
-    block content

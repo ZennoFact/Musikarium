@@ -5,6 +5,10 @@
  */
 
 var app = require('../app');
+
+// socket.io関連　追加
+// var socket = require('../model/socket.js')
+
 var debug = require('debug')('musikarium-server:server');
 var http = require('http');
 
@@ -28,6 +32,9 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+// 追加
+var io = require('socket.io')(server);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -88,3 +95,15 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+// socket(io);
+io.sockets.on('connection', function(socket){
+  console.log("connected!!!!!!!");
+  io.sockets.emit('connected', "Let's session!");
+
+  socket.on('connected', function (key) {
+    // console.log(key);
+    io.sockets.emit('sound', {"key": key});
+  });
+});
